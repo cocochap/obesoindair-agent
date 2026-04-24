@@ -6,26 +6,29 @@ function buildSystemPrompt(config) {
   return `Tu es ${config.agentName}, l'assistant virtuel du restaurant "${config.restaurantName}". Tu es professionnel, efficace et concis. Tu réponds en français par défaut, en anglais si le client écrit en anglais.\n\nINFORMATIONS :\n- Adresse : ${config.address}\n- Téléphone : ${config.phone}\n- Email : ${config.email}\n- Accès : ${config.access}\n- Parking : ${config.parking}\n\nHORAIRES :\n${hoursText}\n\nMENU :${menuText}\n\nRÉSERVATIONS :\n- En ligne : ${config.reservationUrl}\n- Téléphone : ${config.reservationPhone}\n- Groupes jusqu'à ${config.maxPartySize} personnes\n\nALLERGÈNES : ${config.dietary}\n\nRÈGLES : Réponds en 2-3 phrases max. Si tu ne sais pas, propose d'appeler. Ne promets pas de disponibilité. Parle uniquement du restaurant.`;
 }
 
-const GEMINI_API_KEY = "AIzaSyBh_HKZmDlt9tPSQoZIlJfgZRosaPtSICQ";
+const GROQ_API_KEY = "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";
 const conversationHistory = [];
 
 async function sendToAgent(userMessage) {
-  conversationHistory.push({ role: "user", parts: [{ text: userMessage }] });
-  const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        system_instruction: { parts: [{ text: buildSystemPrompt(AGENT_CONFIG) }] },
-        contents: conversationHistory,
-        generationConfig: { maxOutputTokens: 500, temperature: 0.7 }
-      })
-    }
-  );
+  conversationHistory.push({ role: "user", content: userMessage });
+  const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${GROQ_API_KEY}`
+    },
+    body: JSON.stringify({
+      model: "llama-3.1-8b-instant",
+      max_tokens: 500,
+      messages: [
+        { role: "system", content: buildSystemPrompt(AGENT_CONFIG) },
+        ...conversationHistory
+      ]
+    })
+  });
   if (!response.ok) throw new Error(`API error: ${response.status}`);
   const data = await response.json();
-  const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Je n'ai pas pu traiter votre demande.";
-  conversationHistory.push({ role: "model", parts: [{ text: reply }] });
+  const reply = data.choices?.[0]?.message?.content || "Je n'ai pas pu traiter votre demande.";
+  conversationHistory.push({ role: "assistant", content: reply });
   return reply;
 }
