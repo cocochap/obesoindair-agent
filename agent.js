@@ -6,7 +6,7 @@ function buildSystemPrompt(config) {
   return `Tu es ${config.agentName}, l'assistant virtuel du restaurant "${config.restaurantName}". Tu es professionnel, efficace et concis. Tu réponds en français par défaut, en anglais si le client écrit en anglais.\n\nINFORMATIONS :\n- Adresse : ${config.address}\n- Téléphone : ${config.phone}\n- Email : ${config.email}\n- Accès : ${config.access}\n- Parking : ${config.parking}\n\nHORAIRES :\n${hoursText}\n\nMENU :${menuText}\n\nRÉSERVATIONS :\n- En ligne : ${config.reservationUrl}\n- Téléphone : ${config.reservationPhone}\n- Groupes jusqu'à ${config.maxPartySize} personnes\n\nALLERGÈNES : ${config.dietary}\n\nRÈGLES : Réponds en 2-3 phrases max. Si tu ne sais pas, propose d'appeler. Ne promets pas de disponibilité. Parle uniquement du restaurant.`;
 }
 
-const GEMINI_API_KEY = "AIzaSyAOtzZkd0OVZFm_y_dkiQc-nkgKUWTU9l4";
+const GEMINI_API_KEY = "AIzaSyBh_HKZmDlt9tPSQoZIlJfgZRosaPtSICQ";
 const conversationHistory = [];
 
 async function sendToAgent(userMessage) {
