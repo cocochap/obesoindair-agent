@@ -1,44 +1,37 @@
 const AGENT_CONFIG = {
-  // ── Infos du restaurant ──────────────────────────────
-  restaurantName: "Le Bistrot du Coin",
+  restaurantName: "Ô Besoin d'Air",
   agentName: "Alex",
-  primaryColor: "#1a1a2e",
-  accentColor: "#e94560",
+  primaryColor: "#2C1810",
+  accentColor: "#8B6F47",
 
-  // ── Horaires ─────────────────────────────────────────
   hours: {
-    lundi: "Fermé",
-    mardi: "12h00 - 14h30 | 19h00 - 22h30",
-    mercredi: "12h00 - 14h30 | 19h00 - 22h30",
-    jeudi: "12h00 - 14h30 | 19h00 - 22h30",
-    vendredi: "12h00 - 14h30 | 19h00 - 23h00",
-    samedi: "12h00 - 15h00 | 19h00 - 23h00",
-    dimanche: "12h00 - 15h00",
+    lundi: "Midi uniquement",
+    mardi: "Midi uniquement",
+    mercredi: "Fermé",
+    jeudi: "Fermé",
+    vendredi: "Midi et soir",
+    samedi: "Midi et soir",
+    dimanche: "Midi uniquement",
   },
 
-  // ── Menu (résumé) ─────────────────────────────────────
   menu: {
-    entrees: ["Soupe à l'oignon (8€)", "Tartare de saumon (14€)", "Foie gras maison (16€)"],
-    plats: ["Entrecôte sauce béarnaise (28€)", "Filet de bar (24€)", "Risotto aux truffes (22€)"],
-    desserts: ["Crème brûlée (8€)", "Fondant au chocolat (9€)", "Tarte Tatin (8€)"],
-    menus: ["Menu déjeuner : Entrée + Plat ou Plat + Dessert = 19€", "Menu soir : Entrée + Plat + Dessert = 38€"],
+    entrees: ["Spécialités savoyardes", "Cuisine traditionnelle française", "Produits frais de saison"],
+    plats: ["Plats savoyards", "Cuisine du terroir", "Carte de printemps du 24/04 au 28/06 2026"],
+    desserts: ["Desserts maison", "Suggestions du chef"],
+    menus: ["Consultez notre carte sur le site pour les tarifs"],
   },
 
-  // ── Infos pratiques ───────────────────────────────────
-  address: "12 Rue de la Paix, 75001 Paris",
-  phone: "01 23 45 67 89",
-  email: "contact@bistrotducoin.fr",
-  parking: "Parking souterrain à 50m (Rue de Rivoli)",
-  access: "Métro Opéra (lignes 3, 7, 8) — 2 min à pied",
+  address: "Cité médiévale de Conflans, Albertville, Savoie",
+  phone: "04 79 37 71 29",
+  email: "obesoindair@outlook.fr",
+  parking: "Grande place piétonne de Conflans",
+  access: "Face au musée et à l'hôtel La Citadelle, cité médiévale de Conflans",
 
-  // ── Réservations ──────────────────────────────────────
-  reservationUrl: "https://bistrotducoin.fr/reservation",
-  reservationPhone: "01 23 45 67 89",
-  maxPartySize: 12,
+  reservationUrl: "https://www.obesoindair.com/PBCPPlayer.asp?ID=1992695",
+  reservationPhone: "04 79 37 71 29",
+  maxPartySize: 20,
 
-  // ── Allergènes & régimes ──────────────────────────────
-  dietary: "Nous proposons des options végétariennes et pouvons adapter certains plats pour les allergies. Merci de nous prévenir lors de la réservation.",
+  dietary: "Cuisine traditionnelle française et savoyarde. Contactez-nous pour toute allergie.",
 
-  // ── Langue par défaut ─────────────────────────────────
-  defaultLanguage: "fr", // "fr" ou "en"
+  defaultLanguage: "fr",
 };
