@@ -9,7 +9,7 @@ function buildSystemPrompt(config, lang) {
   return `Tu es ${config.agentName}, l'assistant du restaurant "${config.restaurantName}". Tu es professionnel et concis.\n\n${langInstruction}\n\nInfos:\n- Adresse: ${config.address}\n- Tél: ${config.phone}\n- Email: ${config.email}\n- Accès: ${config.access}\n\nHoraires:\n${hoursText}\n\nMenu:${menuText}\n\nRéservations: ${config.reservationUrl} ou ${config.reservationPhone}\nAllergènes: ${config.dietary}\n\nRègles: 2-3 phrases max. Si inconnu, proposer d'appeler. Parler uniquement du restaurant.`;
 }
 
-const GROQ_API_KEY = "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";
+
 const conversationHistory = [];
 
 async function sendToAgent(userMessage, lang = 'fr') {
