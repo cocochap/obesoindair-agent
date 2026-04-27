@@ -2,14 +2,14 @@ function buildSystemPrompt(config, lang) {
   const hoursText = Object.entries(config.hours)
     .map(([day, h]) => `  ${day.charAt(0).toUpperCase() + day.slice(1)}: ${h}`)
     .join("\n");
-  const menuText = `\nEntrées/Starters: ${config.menu.entrees.join(", ")}\nPlats/Mains: ${config.menu.plats.join(", ")}\nDesserts: ${config.menu.desserts.join(", ")}\nMenus: ${config.menu.menus.join(" | ")}`;
-  const langInstruction = lang === 'en' 
-    ? "IMPORTANT: You must respond ONLY in English. The customer is speaking English."
+  const menuText = `\nEntrées: ${config.menu.entrees.join(", ")}\nPlats: ${config.menu.plats.join(", ")}\nDesserts: ${config.menu.desserts.join(", ")}\nMenus: ${config.menu.menus.join(" | ")}`;
+  const langInstruction = lang === 'en'
+    ? "IMPORTANT: You must respond ONLY in English."
     : "IMPORTANT: Tu dois répondre UNIQUEMENT en français.";
-  return `Tu es ${config.agentName}, l'assistant virtuel du restaurant "${config.restaurantName}". Tu es professionnel, efficace et concis.\n\n${langInstruction}\n\nINFORMATIONS :\n- Adresse : ${config.address}\n- Téléphone : ${config.phone}\n- Email : ${config.email}\n- Accès : ${config.access}\n- Parking : ${config.parking}\n\nHORAIRES :\n${hoursText}\n\nMENU :${menuText}\n\nRÉSERVATIONS :\n- En ligne : ${config.reservationUrl}\n- Téléphone : ${config.reservationPhone}\n- Groupes jusqu'à ${config.maxPartySize} personnes\n\nALLERGÈNES : ${config.dietary}\n\nRÈGLES : Réponds en 2-3 phrases max. Si tu ne sais pas, propose d'appeler. Ne promets pas de disponibilité. Parle uniquement du restaurant.`;
+  return `Tu es ${config.agentName}, l'assistant du restaurant "${config.restaurantName}". Tu es professionnel et concis.\n\n${langInstruction}\n\nInfos:\n- Adresse: ${config.address}\n- Tél: ${config.phone}\n- Email: ${config.email}\n- Accès: ${config.access}\n\nHoraires:\n${hoursText}\n\nMenu:${menuText}\n\nRéservations: ${config.reservationUrl} ou ${config.reservationPhone}\nAllergènes: ${config.dietary}\n\nRègles: 2-3 phrases max. Si inconnu, proposer d'appeler. Parler uniquement du restaurant.`;
 }
 
-const GROQ_API_KEY = "METS_TA_CLE_ICI";
+const GROQ_API_KEY = "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";
 const conversationHistory = [];
 
 async function sendToAgent(userMessage, lang = 'fr') {
@@ -31,7 +31,7 @@ async function sendToAgent(userMessage, lang = 'fr') {
   });
   if (!response.ok) throw new Error(`API error: ${response.status}`);
   const data = await response.json();
-  const reply = data.choices?.[0]?.message?.content || "Je n'ai pas pu traiter votre demande.";
+  const reply = data.choices?.[0]?.message?.content || (lang === 'en' ? "Sorry, an error occurred." : "Désolé, une erreur est survenue.");
   conversationHistory.push({ role: "assistant", content: reply });
   return reply;
 }
