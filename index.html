@@ -165,7 +165,7 @@
     document.getElementById("suggestions").style.display = "none";
     addMessage("user", text); showTyping();
     try {
-      const reply = await sendToAgent(text); hideTyping(); addMessage("bot", reply);
+      const reply = await sendToAgent(text, currentLang); hideTyping(); addMessage("bot", reply);
     } catch (err) {
       hideTyping(); addMessage("bot", currentLang === 'fr' ? "Désolé, une erreur est survenue. Veuillez nous appeler au " + AGENT_CONFIG.phone : "Sorry, an error occurred. Please call us at " + AGENT_CONFIG.phone);
     }
